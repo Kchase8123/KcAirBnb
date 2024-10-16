@@ -28,22 +28,23 @@ export const signup =
     return response;
   };
 
-// Thunk Action for Logging in
-export const login =
-  ({ credential, password }) =>
-  async (dispatch) => {
-    console.log("Dispatching login with:", { credential, password }); // Log payload
 
-    // Make sure the payload is structured correctly without nesting
-    const response = await csrfFetch("/api/session", {
-      method: "POST",
-      body: { credential, password }, // Flattened structure
-    });
+// Thunk to Log In User
+export const login = (user) => async (dispatch) => {
+  const { credential, password } = user;
 
-    const data = await response.json();
-    dispatch(setUser(data.user)); // Use setUser instead of setSessionUser
-    return response;
-  };
+  console.log("Logging in with:", { credential, password });
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
+    // headers: {
+    //   'Content-Type': 'application/json',  // Important! Set the content type to JSON
+    // },
+    body: JSON.stringify({ credential, password }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user)); // Add the user to the Redux store
+  return response;
+};
 
 // Thunk Action for Restoring Session User
 export const restoreUser = () => async (dispatch) => {
