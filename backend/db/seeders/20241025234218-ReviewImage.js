@@ -54,7 +54,7 @@ module.exports = {
       const Op = Sequelize.Op;
       await queryInterface.bulkDelete(options, {
         reviewId: { [Op.in]: [1, 2, 3, 4]
-          
+
          }
       },{});
   }
