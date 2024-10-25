@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import logo from "/home/kevin/KcAirBnb/frontend/dist/assets/logo.png"
+
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
     return (
         <div className="navigation-bar">
             <div className="logo">
-                <NavLink to="/"><img src={logo} alt="Home"/></NavLink>
+                <NavLink to="/"><img src="/logo.png" alt="Home"/></NavLink>
             </div>
 
             <div className="create-spot-container">
