@@ -1,6 +1,6 @@
-# VacayStay
+# KcAirBnb
 
-<a href="https://vacaystay-vez0.onrender.com" target="_blank">Link to API</a>
+<a href="" target="_blank">Link to API</a>
 
 ## Database Schema Design
 

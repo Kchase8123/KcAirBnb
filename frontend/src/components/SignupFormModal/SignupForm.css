@@ -1,33 +1,51 @@
-/* frontend/src/components/SignupFormPage/SignupForm.css */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 600;
+    color: #333;
+}
 
 form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px;
 }
 
 label {
-    margin-bottom: 10px;
-    width: 100%;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
 }
 
 input {
-    padding: 8px;
-    margin-bottom: 10px;
-    width: 100%;
-    border-radius: 4px;
+    padding: 10px 0px;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
 }
 
 button {
-    padding: 10px;
-    background-color: #4CAF50;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
+}
+
+.disabled-button {
+    background-color: darkgrey;
+    cursor: not-allowed;
+
+}
+
+.enabled-button {
+    background-color: #c02b30;
+}
+
+p {
+    color: red;
+    font-size: 14px;
 }

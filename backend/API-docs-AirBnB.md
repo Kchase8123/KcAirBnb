@@ -1,8 +1,8 @@
-# VacayStay
+# KcAirBnb
 
 ## Database Schema Design
 
-![image of database schema](/backend/images/db_schema.png)
+![image of database schema](/images/db-schema.png)
 
 ## API Documentation
 

@@ -1,0 +1,17 @@
+.spot-manage {
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+}
+.spot-manage h1 {
+    margin:0px;
+    text-align: left;
+}
+
+.create-spot-button {
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    width: 290px;
+}

@@ -1,0 +1,141 @@
+/* General styles */
+.spot-list {
+    padding: 20px; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Responsive Layout */
+@media (min-width: 1201px) {
+    .spot-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on extra-large screens */
+        gap: 20px;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1200px) {
+    .spot-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+        gap: 20px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 900px){
+    .spot-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+        gap: 20px; 
+    }
+}
+
+@media (max-width: 600px) {
+    .spot-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* 1 column on small screens */
+        gap: 20px;
+    }
+}
+/* Spot Styles */
+.spot-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer; /* Pointer cursor for clickable elements */
+    position: relative;
+    width: 100%; /* Ensure the width fills the grid column */
+    height: 300px; /* Set a fixed height to reduce the item size */
+    display: flex;
+    flex-direction: column; /* Stack the image and the info vertically */
+}
+
+
+.spot-image {
+    width: 100%;
+    height: 70%; 
+    object-fit: cover; /* Ensures the image is not zoomed in and fully visible */
+    flex-grow: 1; /* Allow the image to take the remaining space */
+
+}
+
+/* Spot info styles */
+.spot-info {
+    padding: 10px;
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    background: rgba(255,255,255,0.8); /* Slightly transparent background */
+}
+/* Tooltip Styles */
+.spot-tooltip {
+    visibility: hidden; /* Hidden by default */
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 10px; /* Position above the spot */ 
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+} 
+
+.spot-item:hover .spot-tooltip {
+    visibility: visible; /* Show tooltip on hover */
+    opacity: 1;
+}
+
+/* Location and rating styles */
+.spot-location {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+/* Star icon and rating styles */
+.spot-rating {
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Vertically align items */
+}
+
+.star-icon {
+    color: #f39c12;
+    margin-right: 3px; /* Adjust spacing between star icon and rating */
+}
+
+/* Price per night styles */
+.spot-price {
+    margin-top: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+
+}
+
+/* Style for the about section */
+.about-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd; /* Divider line */
+    margin-top: 5px;
+}
+
+.about-section-three {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Style for the LinkedIn logo */
+.about-section-three img {
+    width: 30px;
+    height: auto;
+}

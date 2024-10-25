@@ -1,0 +1,23 @@
+.datepicker_container {
+    position: relative;
+    width: 100%;
+}  
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.react-datepicker__input-container {
+    width: 100%;
+}
+
+
+.react-datepicker__day--highlighted-booked {
+    color: grey !important;
+    background-color: lightgrey !important;
+    text-decoration: line-through;
+}
+
+.react-datepicker__day--disabled {
+    cursor: not-allowed; /* Change cursor to indicate disabled dates */
+}

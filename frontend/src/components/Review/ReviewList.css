@@ -1,0 +1,23 @@
+.review-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.review-container h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.review-container h4 {
+    font-size: 1em;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.review-container p {
+    color: black;
+    font-style: italic;
+    font-size: 1em;
+    line-height: 1.6;
+}

@@ -1,5 +1,16 @@
 'use strict';
 
+const { ReviewImage } = require("../models");
+const bcrypt = require("bcryptjs");
+const reviewimage = require("../models/reviewimages");
+
+
+let options = {};
+options.tableName = "ReviewImages";
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in the options object
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -12,6 +23,24 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+        await ReviewImage.bulkCreate([
+          {
+            url: "https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698721/Review_Image_3_nm4fmi.jpg",
+            reviewId: 1
+          },
+          {
+            url: "https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698719/Review_Image_1_nunyk2.jpg",
+            reviewId: 2
+          },
+          {
+            url: "https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698720/Review_Image_2_lcojaq.jpg",
+            reviewId: 3
+          },
+          {
+            url: "https://example.com/review_image6.jpg",
+            reviewId: 4,
+          },
+        ],{validate:true})
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +50,13 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+      options.tableName = "ReviewImages"
+      await queryInterface.bulkDelete(options, {
+        url: { [Op.in]: ["https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698721/Review_Image_3_nm4fmi.jpg",
+          "https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698719/Review_Image_1_nunyk2.jpg",
+          "https://res.cloudinary.com/dmg8yuivs/image/upload/v1721698720/Review_Image_2_lcojaq.jpg",
+          "https://example.com/review_image6.jpg"
+        ] }
+      },{});
   }
 };

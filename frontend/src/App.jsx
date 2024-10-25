@@ -1,44 +1,77 @@
-// frontend/src/App.jsx
-
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
 import Navigation from "./components/Navigation/Navigation";
+import SpotList from "./components/Spot/SpotList";
+import SpotDetails from "./components/Spot/SpotDetails";
+import SpotForm from "./components/Spot/SpotForm";
+import SpotManage from "./components/Spot/SpotManage";
+import SpotFormUpdate from "./components/Spot/SpotFormUpdate";
+import UserReviews from "./components/Review/ReviewManage";
+import BookingManage from "./components/Booking/BookingManage";
 import * as sessionActions from "./store/session";
 
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const sessionUser = useSelector((state) => state.session.user); // Get session user from Redux store
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(sessionActions.restoreUser()).then(() => {
+      setIsLoaded(true)
+    });
   }, [dispatch]);
 
   return (
-    <>
-      {/* Render Navigation bar on all pages */}
-      <Navigation isLoaded={isLoaded} />
-
-      {/* Render conditional header based on sessionUser */}
+    <div className="container">
       <header>
-        <h1>
-          {sessionUser ? `Welcome, ${sessionUser.firstName}!` : "Welcome!"}
-        </h1>
+        <Navigation isLoaded={isLoaded} />
       </header>
+      <main>
+        {isLoaded && <Outlet />}
+      </main>
+    </div>
 
-      {/* Conditionally render Outlet only after user restoration */}
-      {isLoaded && <Outlet />}
-    </>
   );
 }
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
-    children: [{ path: "/", element: null }],
-  },
+    children: [
+      {
+        path:"/",
+        element: <SpotList />
+      },
+      {
+        path:"/spots/:spotId",
+        element: <SpotDetails />
+      },
+      {
+        path:"/spots/new",
+        element: <SpotForm />
+      },
+      {
+        path:"/spots/current",
+        element: <SpotManage />
+      },
+      {
+        path:"/spots/:spotId/edit",
+        element: <SpotFormUpdate />
+      },
+      {
+        path:"/reviews/current",
+        element: <UserReviews />
+      },
+      {
+        path:"/bookings/current",
+        element: <BookingManage />
+      },
+      {
+        path: "*",
+        element: <h1>Page Not Found</h1>
+      }
+    ]
+  }
 ]);
 
 function App() {

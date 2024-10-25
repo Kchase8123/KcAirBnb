@@ -1,5 +1,15 @@
 'use strict';
 
+const { Review } = require("../models");
+const bcrypt = require("bcryptjs");
+
+
+let options = {};
+options.tableName = "Reviews";
+if (process.env.NODE_ENV === "production") {
+  options.schema = process.env.SCHEMA; // define your schema in the options object
+}
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -12,6 +22,33 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+      await Review.bulkCreate([
+        {
+          userId: 2,
+          spotId: 2,
+          review: "Relaxing stay, lovely place",
+          stars: 4
+        },
+        {
+          userId: 3,
+          spotId: 3,
+          review: "Very clean and modern",
+          stars: 5
+        },
+        {
+          userId: 1,
+          spotId: 1,
+          review: "Definitely worth a visit",
+          stars: 4
+        },
+        {
+          userId: 3,
+          spotId: 1,
+          review: "Not as nice as advertised :(",
+          stars: 2,
+        },
+
+      ],{validate:true})
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +58,9 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+    options.tableName = "Reviews";
+    await queryInterface.bulkDelete(options, {
+      review: { [Op.in]: ["Relaxing stay, lovely place", "Very clean and modern", "Definitely worth a visit", "Not as nice as advertised :("] }
+    } ,{});
   }
 };

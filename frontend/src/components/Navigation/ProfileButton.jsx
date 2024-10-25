@@ -1,90 +1,96 @@
-// frontend/src/components/Navigation/ProfileButton.jsx
-
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { FaUserCircle, FaSignOutAlt, FaEnvelope } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import * as sessionActions from "../../store/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal/LoginFormModal";
 import SignupFormModal from "../SignupFormModal/SignupFormModal";
-import "./ProfileButton.css";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function ProfileButton({ user }) {
-  const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
+    const dispatch = useDispatch();
+    const [showMenu, setShowMenu] = useState(false);
+    const ulRef = useRef();
+    const navigate = useNavigate();
 
-  const toggleMenu = (e) => {
-    e.stopPropagation();
-    setShowMenu(!showMenu);
-  };
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
+    //Toggle menu visibility and stop event propogation
+    const toggleMenu = (e) => {
+        e.stopPropagation(); //Keep from bulbbling up to document and triggering closeMenu
+        setShowMenu(!showMenu);
     };
 
-    document.addEventListener("click", closeMenu);
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
+    //Effect to handle closing the menu when clicking outside of it
+    useEffect(() => {
+        if (!showMenu) return;
 
-  const closeMenu = () => setShowMenu(false);
+        //Close menu if clicking outside of it
+        const closeMenu = (e) => {
+            if (!ulRef.current.contains(e.target)){
+                setShowMenu(false);
+            }
+        };
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-    closeMenu();
-  };
+        document.addEventListener("click", closeMenu);
 
-  return (
-    <div className="profile-button-container">
-      <button onClick={toggleMenu}>
-        <FaUserCircle size={24} />
-      </button>
-      <ul
-        className={`profile-dropdown ${showMenu ? "" : "hidden"}`}
-        ref={ulRef}
-      >
-        {user ? (
-          <>
-            <li>
-              <FaUserCircle style={{ marginRight: "8px" }} />
-              {user.username}
-            </li>
-            <li>
-              <FaUserCircle style={{ marginRight: "8px" }} />
-              {user.firstName} {user.lastName}
-            </li>
-            <li>
-              <FaEnvelope style={{ marginRight: "8px" }} />
-              {user.email}
-            </li>
-            <li onClick={logout}>
-              <FaSignOutAlt style={{ marginRight: "8px" }} />
-              Log Out
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalMenuItem
-              itemText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
-              itemText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
-    </div>
-  );
+        //Cleanup the event listener on component unmount or showMenu change
+        return () => document.removeEventListener("click", closeMenu);
+    }, [showMenu]);
+
+    const closeMenu = () => setShowMenu(false);
+
+    //Logout handler
+    const logout = (e) => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+        closeMenu();
+        navigate("/");
+    };
+
+    //CSS class for toggling dropdown visibility
+    const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+
+    return ( 
+        <div style={{position: "relative"}}> {/*Container for relative positioning*/}
+            <button onClick={toggleMenu}>
+                <FaUserCircle />
+            </button>
+            <ul className={ulClassName} ref={ulRef}>
+                {user ? (
+                    <>
+                        <li>Hello, {user.username}</li>
+                        <li>{user.email}</li>
+                        <li>
+                            <NavLink to="/spots/current">Manage Spots</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/reviews/current">Manage Reviews</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/bookings/current">Manage Bookings</NavLink>
+                        </li>
+                        <li>
+                            <button onClick={logout}>Log Out</button>
+                        </li>
+                    </>
+                ) : (
+                    <>
+                        <OpenModalMenuItem
+                            itemText="Log In"
+                            onItemClick={closeMenu}
+                            modalComponent={<LoginFormModal />}
+                        />
+                        
+                        <OpenModalMenuItem
+                            itemText="Sign Up"
+                            onItemClick={closeMenu}
+                            modalComponent={<SignupFormModal />}
+                        />
+                    </>
+                )}
+            </ul>
+        </div>
+
+    );
 }
 
 export default ProfileButton;

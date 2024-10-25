@@ -1,40 +1,51 @@
-const express = require("express");
-const { SpotImages, Spot } = require("../../db/models");
-const { requireAuth } = require("../../utils/auth");
+const express = require('express');
+const { Spot, SpotImage } = require('../../db/models');
+const { requireAuth } = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+
 const router = express.Router();
 
-// delete a spot image
-router.delete("/:imageId", requireAuth, async (req, res, next) => {
-  const imageId = req.params.imageId;
-  const userId = req.user.id;
+//Delete a Spot Image
+router.delete("/:imageId", requireAuth, async (req, res) => {
+    const {id} = req.user;
+    const {imageId} = req.params;
 
-  try {
-    // Find the SpotImage with its associated Spot
-    const image = await SpotImages.findByPk(imageId, {
-      include: {
-        model: Spot,
-        attributes: ["ownerId"],
-      },
+    const imageWithSpot = await SpotImage.findOne({
+        where: {id: imageId},
+        include: {model: Spot}
     });
 
-    // Return 404 if the image doesn't exist
-    if (!image) {
-      return res.status(404).json({ message: "Spot Image couldn't be found" });
+    const imageToDelete = await SpotImage.findByPk(imageId);
+
+    if (imageToDelete){
+        if (id === imageWithSpot.Spot.ownerId){
+
+            await imageToDelete.destroy();
+
+            res.json({
+                "message": "Successfully deleted"
+            });
+
+        } else {
+            res.status(403);
+            res.json({
+                "message": "Forbidden"
+            });
+        }
+
+    } else {
+        res.status(404);
+        res.json({
+            "message": "Spot Image couldn't be found"
+        });
     }
 
-    // Check if the current user is the owner of the spot
-    if (image.Spot.ownerId !== userId) {
-      return res
-        .status(403)
-        .json({ message: "Forbidden: You do not own this spot" });
-    }
-
-    // Delete the image
-    await image.destroy();
-    return res.status(200).json({ message: "Successfully deleted" });
-  } catch (error) {
-    next(error);
-  }
 });
+
+
+
+
+
 
 module.exports = router;
