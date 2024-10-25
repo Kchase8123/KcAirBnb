@@ -49,7 +49,7 @@ function ProfileButton({ user }) {
     //CSS class for toggling dropdown visibility
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
-    return ( 
+    return (
         <div style={{position: "relative"}}> {/*Container for relative positioning*/}
             <button onClick={toggleMenu}>
                 <FaUserCircle />
@@ -57,7 +57,7 @@ function ProfileButton({ user }) {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>Hello, {user.username}</li>
+                        <li>Hello, {user.firstName}</li>
                         <li>{user.email}</li>
                         <li>
                             <NavLink to="/spots/current">Manage Spots</NavLink>
@@ -79,7 +79,7 @@ function ProfileButton({ user }) {
                             onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />}
                         />
-                        
+
                         <OpenModalMenuItem
                             itemText="Sign Up"
                             onItemClick={closeMenu}
