@@ -26,16 +26,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     spotId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      references: {
+        model: 'Spots',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
     }
   }, {
     sequelize,
     modelName: 'SpotImage',
-    defaultScope: {
-      attributes: {
-        exclude: ["spotId", "createdAt", "updatedAt"]
-      }
-    }
+    // defaultScope: {
+    //   attributes: {
+    //     exclude: ["spotId", "createdAt", "updatedAt"]
+    //   }
+    // }
   });
   return SpotImage;
 };
