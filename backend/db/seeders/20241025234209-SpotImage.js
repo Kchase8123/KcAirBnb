@@ -23,31 +23,6 @@ module.exports = {
     */
         await SpotImage.bulkCreate([
           {
-            url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
-            preview: true,
-            spotId: 2
-          },
-          {
-            url: "https://images.pexels.com/photos/298842/pexels-photo-298842.jpeg",
-            preview: false,
-            spotId: 2
-          },
-          {
-            url: "https://images.pexels.com/photos/2950003/pexels-photo-2950003.jpeg",
-            preview: false,
-            spotId: 2
-          },
-          {
-            url: "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg",
-            preview: false,
-            spotId: 2
-          },
-          {
-            url: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg",
-            preview: false,
-            spotId: 2
-          },
-          {
             url: "https://images.pexels.com/photos/731082/pexels-photo-731082.jpeg",
             preview: true,
             spotId: 1
@@ -71,6 +46,31 @@ module.exports = {
             url: "https://images.pexels.com/photos/1444424/pexels-photo-1444424.jpeg",
             preview: false,
             spotId: 1
+          },
+          {
+            url: "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
+            preview: true,
+            spotId: 2
+          },
+          {
+            url: "https://images.pexels.com/photos/298842/pexels-photo-298842.jpeg",
+            preview: false,
+            spotId: 2
+          },
+          {
+            url: "https://images.pexels.com/photos/2950003/pexels-photo-2950003.jpeg",
+            preview: false,
+            spotId: 2
+          },
+          {
+            url: "https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg",
+            preview: false,
+            spotId: 2
+          },
+          {
+            url: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg",
+            preview: false,
+            spotId: 2
           },
           {
             url: "https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg",
