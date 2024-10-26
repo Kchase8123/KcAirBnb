@@ -2,7 +2,7 @@
 
 const { ReviewImage } = require("../models");
 const bcrypt = require("bcryptjs");
-const reviewimage = require("../models/reviewimages");
+const reviewimage = require("../models/reviewimage");
 
 
 let options = {};
